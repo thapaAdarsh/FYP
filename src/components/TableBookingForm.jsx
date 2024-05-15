@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { ref, push, get } from "firebase/database";
+import { ref as databaseRef, push, get } from "firebase/database";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Alert from "./Alert"; // Import the Alert component
+import emailjs from "@emailjs/browser";
+import { auth } from "../firebase";
 
 const MAX_SEATS_PER_TABLE = {
   1: 4,
@@ -26,6 +28,20 @@ const TableBookingForm = () => {
   const [occasion, setOccasion] = useState("family function");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [conflictError, setConflictError] = useState(null);
+  const form = useRef();
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setUser(user);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
 
   const navigate = useNavigate();
 
@@ -48,6 +64,7 @@ const TableBookingForm = () => {
 
     return null;
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,21 +74,26 @@ const TableBookingForm = () => {
       return;
     }
 
+    const currentUser = auth.currentUser;
+    const userId = currentUser ? currentUser.uid : null;
+
     // Create a new booking object
     const booking = {
       tableId,
       fullName,
       email,
       // date: `${date} ${time}`,
+      userId,
       date,
       time,
       people,
       occasion,
+      status: "booked",
     };
 
     try {
       // Fetch existing bookings for the selected date
-      const bookingsRef = ref(db, "tableBooking");
+      const bookingsRef = databaseRef(db, `tableBooking/${userId}`);
       const snapshot = await get(bookingsRef);
       const bookings = [];
       snapshot.forEach((childSnapshot) => {
@@ -92,10 +114,24 @@ const TableBookingForm = () => {
         setConflictError(conflictError);
         return;
       }
-      
+
       // Add booking to Realtime Database
-      await push(ref(db, "tableBooking"), booking);
+      await push(databaseRef(db, `tableBooking/${userId}`), booking);
       console.log("Booking added with ID: ", booking.date);
+
+      // Email Js
+      await emailjs
+        .sendForm("service_4ssy2q8", "template_j7gd9er", form.current, {
+          publicKey: "6JGV6ItG1V6aRiX2x",
+        })
+        .then(
+          () => {
+            console.log("SUCCESS!");
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+          }
+        );
 
       navigate(`/TableConfirmation/${tableId}`, { state: booking });
       // Clear form fields
@@ -222,6 +258,23 @@ const TableBookingForm = () => {
     return number < 10 ? `0${number}` : number.toString();
   };
 
+  const getCurrentDate = () => {
+    const today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    return yyyy + "-" + mm + "-" + dd;
+  };
+
   const generateTimeOptions = () => {
     const options = [];
 
@@ -275,7 +328,8 @@ const TableBookingForm = () => {
               <form
                 onSubmit={handleSubmit}
                 // action="/submit"
-                method="post"
+                ref={form}
+                // method="post"
                 className="bg-white shadow-md w-full rounded-xl px-8 pt-6 pb-8 mb-4 md:max-w-2xl"
               >
                 <div className="mb-4">
@@ -290,7 +344,7 @@ const TableBookingForm = () => {
                     id="name"
                     placeholder="Enter your Full name..."
                     type="text"
-                    name="name"
+                    name="user_fullname"
                     required
                     onChange={(e) => setFullName(e.target.value)}
                     value={fullName}
@@ -307,7 +361,7 @@ const TableBookingForm = () => {
                     className="shadow appearance-none border rounded w-full py-3 px-3 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-400 sm:text-sm md:text-md text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="email"
                     type="email"
-                    name="email"
+                    name="user_email"
                     placeholder="Enter your email..."
                     required
                     onChange={(e) => setEmail(e.target.value)}
@@ -325,10 +379,11 @@ const TableBookingForm = () => {
                     className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="date"
                     type="date"
-                    name="date"
+                    name="user_date"
                     required
                     onChange={(e) => setDate(e.target.value)}
                     value={date}
+                    min={getCurrentDate()}
                   />
                 </div>
                 <div className="mb-4 relative">
@@ -342,7 +397,8 @@ const TableBookingForm = () => {
                     <select
                       className="shadow appearance-none border rounded w-full py-3 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="time"
-                      name="time"
+                      type="text"
+                      name="user_time"
                       required
                       onChange={(e) => setTime(e.target.value)}
                       value={time}
@@ -374,7 +430,8 @@ const TableBookingForm = () => {
                     <select
                       className="shadow appearance-none border rounded w-full py-3 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-md"
                       id="people"
-                      name="people"
+                      name="user_people"
+                      type="number"
                       value={people}
                       onChange={(e) => setPeople(parseInt(e.target.value))}
                       required
@@ -410,9 +467,10 @@ const TableBookingForm = () => {
                     <select
                       className="shadow appearance-none border rounded w-full py-3 px-3 pr-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-md"
                       id="occasion"
-                      name="occasion"
+                      name="user_function"
                       onChange={(e) => setOccasion(e.target.value)}
                       value={occasion}
+                      type="text"
                     >
                       <option value="">Select an occasion</option>
                       <option value="Family Gathering">Family Gathering</option>

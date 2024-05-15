@@ -1,7 +1,5 @@
 
 import FoodContainer from "./FoodContainer";
-import Pagination from "./Pagination";
-// import Searchbar from "./Searchbar";
 import {motion} from "framer-motion"
 
 const Menu = () => {
@@ -23,7 +21,6 @@ const Menu = () => {
           <FoodContainer />
         </div>
       </motion.div>
-      <Pagination />
     </div>
   );
 };

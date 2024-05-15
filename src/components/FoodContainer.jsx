@@ -59,10 +59,10 @@ const FoodContainer = () => {
   };
 
   return (
-    <div>
+    <div className="xl:max-w-6xl mx-auto">
       <Searchbar setSearchQuery={setSearchQuery} /> {/* Pass setSearchQuery function as prop */}
       
-      <div className="menu-bar mt-4 p-2 md:ml-6 md:mr-6 xl:px-36">
+      <div className="menu-bar mt-4 p-2 md:max-w-4xl xl:max-w-6xl mx-auto">
         <div className="flex lg:justify-center overflow-x-scroll space-x-3 font-bold no-scrollbar py-4">
           <button
             type="button"
@@ -98,11 +98,12 @@ const FoodContainer = () => {
       
       {/* Rest of your JSX */}
       <div className="secial-items px-3 font-bold font-david-libre mt-1">
-        <h1 className="text-2xl sm:text-3xl p-1 xl:px-36">
+        <h1 className="text-2xl sm:text-3xl p-1 xl:max-w-6xl mx-auto">
           Our Special Items
         </h1>
       </div>
-      <hr className="border-gray-200" />
+      <hr className="border-gray-400 max-w-6xl mx-auto" />
+      <hr className="border-gray-500 max-w-6xl mx-auto border-dotted" />
 
       <FoodCard foodItems={searchResults} />
     </div>

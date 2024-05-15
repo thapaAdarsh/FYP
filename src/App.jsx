@@ -23,6 +23,11 @@ import AddToCart from "./components/AddToCart";
 import TableBookingForm from "./components/TableBookingForm";
 import TableConfirmation from "./components/TableConfirmation";
 import Profile from "./components/Profile";
+import FoodItems from "./Admin/FoodItems";
+import DeliveryForm from "./components/DeliveryForm";
+import OrderNotification from "./Admin/OrderNotification";
+import Reservations from "./Admin/Reservations";
+import Notifications from "./components/Notifications";
 const App = () => {
   return (
     <>
@@ -142,6 +147,16 @@ const App = () => {
               }
             />
             <Route
+              path="/Notifications"
+              element={
+                <>
+                  <Navbar />
+                  <Notifications/>
+                  <Footer />
+                </>
+              }
+            />
+            <Route
               path="/profile"
               element={
                 <>
@@ -151,6 +166,17 @@ const App = () => {
                 </>
               }
             />
+            <Route
+              path="/delivery-form/:subtotal"
+              element={
+                <>
+                  <Navbar />
+                  <DeliveryForm />
+                  <Footer />
+                </>
+              }
+            />
+
             <Route
               path="/TableBookingForm/:id"
               element={
@@ -172,11 +198,15 @@ const App = () => {
               }
             />
             <Route path="/AddFoodItem" element={<AddFoodItem />} />
+            <Route path="/Reservations" element={<Reservations />} />
+            <Route path="/reservations" element={<Reservations />} />
+            <Route path="/OrderNotifications" element={<OrderNotification />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/ForgotPass" element={<ForgotPass />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Error" element={<Error />} />
             <Route path="/Admin" element={<Admin />} />
+            <Route path="/FoodItems" element={<FoodItems />} />
           </Routes>
         </Router>
       </AuthContextProvider>

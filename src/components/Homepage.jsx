@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import FoodContainer from "./FoodContainer";
 import Button from "./Button";
 import { motion } from "framer-motion";
+import SpecialDishes from "./SpecialDishes";
 
 const variants = {
   hidden: { opacity: 0, y: -50 },
@@ -125,7 +126,7 @@ const Homepage = () => {
       </motion.div>
 
       <div className="bg-black bg-opacity-5 md:p-10 p-5">
-        <div className="lg:flex lg:justify-center sm:items-center xl:max-w-6xl lg:max-w-4xl mx-auto">
+        {/* <div className="lg:flex lg:justify-center sm:items-center xl:max-w-6xl lg:max-w-4xl mx-auto">
           <div className="md:w-1/2 order-2 space-y-3">
             <h2 className="font-extrabold font-inter text-2xl text-center lg:text-4xl xl:text-4xl font-david-libre">
               <span className="text-orange-500 text-3xl lg:text-5xl text-center">
@@ -145,14 +146,72 @@ const Homepage = () => {
               </Link>
             </div>
           </div>
-          <div className="md:w-1/2 order-1">
-            <img
-              src="/img/sushi.jpg"
-              alt=""
-              className="lg:rounded-lg lg:h-[400px] xl:h-[500px]"
-            />
+        </div> */}
+
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <button className=" bg-gray-400 inline-block rounded-lg text-white px-3 py-1 text-sm dark:bg-gray-800">
+                  Our Specialty Dishes
+                </button>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-david-libre">
+                  Savor the Flavors
+                </h2>
+                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                  Indulge in our expertly crafted dishes made with the freshest
+                  ingredients and innovative culinary techniques.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <img
+                alt="Dish"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
+                height="400"
+                src="/img/burger.webp"
+                width="600"
+              />
+              <div className="flex flex-col justify-center space-y-4">
+                <ul className="grid gap-6">
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Grilled Salmon with Lemon Butter
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Succulent salmon fillet grilled to perfection, served
+                        with a tantalizing lemon butter sauce.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Vegetable Stir-Fry with Tofu
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        A vibrant medley of fresh vegetables and crispy tofu,
+                        stir-fried in a savory sauce.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Classic Beef Bolognese
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Slow-simmered beef in a rich tomato sauce, served over
+                        perfectly al dente pasta.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
         {/* ___________________Video ___________________________ */}
         {/* <h2 className="text-2xl md:text-3xl font-david-libre text-center font-bold lg:text-4xl xl:text-5xl mt-10">
           <span className="text-orange-500">How</span> to use our{" "}
@@ -166,12 +225,10 @@ const Homepage = () => {
         </div> */}
 
         {/* <!-- -------------------------------Our special dishes------------------------------------ --> */}
-        <div className="special-dishes mt-12">
+        <div className="special-dishes mt-12 max-w-6xl mx-auto">
           <div className="top">
             <h2 className="font-extrabold text-3xl font-david-libre text-center xl:text-5xl">
-              ✰ Our{" "}
-              <span className="text-orange-500  xl:text-6xl">Special</span>{" "}
-              Dishes ✰
+              Our <span className="text-orange-500">Special</span> Dishes
             </h2>
             <p className="text-base text-center xl:text-md font-light leading-8 md:mt-4">
               Special dishes are culinary delights that stand out from the
@@ -181,7 +238,8 @@ const Homepage = () => {
             </p>
           </div>
           <div>
-            <FoodContainer />
+            {/* fetch 3 food items here */}
+            <SpecialDishes />
           </div>
         </div>
       </div>
@@ -289,8 +347,8 @@ const Homepage = () => {
           </p>
         </div>
 
-        <div className="flex px-4  overflow-scroll no-scrollbar space-x-6 xl:max-w-6xl mx-auto justify-around">
-          <div className="rounded-sm border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
+        <div className="flex px-4  overflow-scroll no-scrollbar space-x-6 xl:max-w-6xl mx-auto justify-between">
+          <div className="rounded-lg border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
             <div className="flex justify-center space-x-2">
               <img src="/img/rating.png" alt="" className="h-5" />
               <img src="/img/rating.png" alt="" className="h-5" />
@@ -321,7 +379,38 @@ const Homepage = () => {
             </div>
           </div>
 
-          <div className="rounded-sm border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
+          <div className="rounded-lg border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
+            <div className="flex justify-center space-x-2">
+              <img src="/img/rating.png" alt="" className="h-5" />
+              <img src="/img/rating.png" alt="" className="h-5" />
+              <img src="/img/rating.png" alt="" className="h-5" />
+              <img src="/img/rating.png" alt="" className="h-5" />
+              <img src="/img/rating.png" alt="" className="h-5" />
+            </div>
+            <div className="">
+              <p className="text-center leading-6">
+                I recently had the pleasure of engaging with Khana Aau and I am
+                overjoyed to share my delightful experience. From start to
+                finish, the entire journey was marked by exceptional service and
+                genuine customer care.
+              </p>
+            </div>
+            <div className="flex items-center justify-center space-x-4">
+              <img
+                src="/img/adarsh.png"
+                alt=""
+                className="rounded-full h-10 w-10"
+              />
+              <div>
+                <p className="font-bold font-david-libre text-lg">
+                  Adarsh Thapa
+                </p>
+                <p className="text-sm">Master Chef</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
             <div className="flex justify-center space-x-2">
               <img src="/img/rating.png" alt="" className="h-5" />
               <img src="/img/rating.png" alt="" className="h-5" />
@@ -351,8 +440,8 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="flex px-4  overflow-scroll no-scrollbar space-x-6 xl:max-w-6xl mx-auto justify-around mt-14">
-          <div className="rounded-sm border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
+        <div className="flex px-4  overflow-scroll no-scrollbar space-x-8 xl:max-w-6xl mx-auto justify-center mt-14 pb-20">
+          <div className="rounded-lg border border-gray-320 shadow-md hover:shadow-inner w-80 bg-white p-6 space-y-3 flex-none">
             <div className="flex justify-center space-x-2">
               <img src="/img/rating.png" alt="" className="h-5" />
               <img src="/img/rating.png" alt="" className="h-5" />
@@ -384,7 +473,7 @@ const Homepage = () => {
           </div>
 
           <motion.div
-            className="rounded-sm border border-gray-320 shadow-md w-80 bg-white p-6 space-y-3 flex-none"
+            className="rounded-lg border border-gray-320 shadow-md w-80 bg-white p-6 space-y-3 flex-none"
             whileHover={{
               translateZ: 80,
               boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.2)",

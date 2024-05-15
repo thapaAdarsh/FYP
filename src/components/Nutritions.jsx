@@ -48,14 +48,14 @@ const Nutritions = () => {
               *Watch before you eat. Eat accroding to the nutrition's needed for
               you.
             </p>{" "}
-            <hr className="border-black my-8" />
+            <hr className="border-black my-8 max-w-5xl mx-auto" />
           </div>
-          <div className="row-forth">
-            <h4 className="font-bold font-david-libre text-2xl text-center">
+          <div className="row-forth p-6">
+            <h4 className="font-bold font-david-libre text-2xl text-center text-4xl">
               Select from menu items
             </h4>
           </div>
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto pb-14">
             <NutritionCard />
           </div>
         </div>

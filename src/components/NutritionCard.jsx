@@ -49,7 +49,7 @@ import { useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 const NutritionCard = () => {
   const [foodItems, setFoodItems] = useState([]);
@@ -71,15 +71,22 @@ const NutritionCard = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 mx-auto max-w-screen-lg">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 mx-auto max-w-screen-lg">
       {foodItems.map((foodItem) => (
-        <motion.div key={foodItem.id} className="p-4"           whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}>
+        <motion.div key={foodItem.id} className="bg-white rounded-lg shadow-md overflow-hidden">
           <Link to={`/NutritionCalculator/${foodItem.id}`}>
-            <div className="bg-white border border-gray-300 rounded-md shadow-md overflow-hidden cursor-pointer">
-              <img src={foodItem.image} alt={foodItem.foodName} className="w-full h-48 object-cover" />
-              <div className="p-4">
-                <h5 className="text-center font-semibold">{foodItem.foodName}</h5>
+            <div className="relative">
+              <img
+                alt={foodItem.foodName}
+                className="w-full h-[240px] object-cover"
+                src={foodItem.image}
+                style={{
+                  aspectRatio: "300/200",
+                  objectFit: "cover",
+                }}
+              />
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
+                <h3 className="text-xl font-david-libre font-semibold text-white text-center">{foodItem.foodName}</h3>
               </div>
             </div>
           </Link>

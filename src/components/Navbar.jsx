@@ -128,7 +128,7 @@ const Navbar = () => {
 
         <div className="center text-sm">
           <div className="features hidden lg:block items-center">
-            <ul className="lg:flex justify-center lg:space-x-6 font-inter xl:space-x-4">
+            <ul className="lg:flex justify-center lg:space-x-6 font-inter xl:space-x-4 text-md font-medium">
               <li className="cursor-pointer">
                 <Link
                   to="/"
@@ -178,7 +178,7 @@ const Navbar = () => {
                   About our Food
                 </Link>
               </li>
-              <li className="cursor-pointer">
+              {/* <li className="cursor-pointer">
                 <Link
                   to="/onlineOrder"
                   className={
@@ -189,7 +189,7 @@ const Navbar = () => {
                 >
                   Online Order
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
@@ -200,7 +200,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.4 }}
               whileTap={{ scale: 0.9 }}
             >
-              <img src="/img/add-to-cart.png" alt="" className="h-9 w-9" />
+              <img src="/img/AddToCart.png" alt="" className="h-9 w-9" />
             </motion.button>
           </Link>
           <Link to="/FavouriteFood">
@@ -209,7 +209,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.4 }}
               whileTap={{ scale: 0.9 }}
             >
-              <img src="/img/yellow-love.png" alt="" className="h-9 w-9" />
+              <img src="/img/fav.png" alt="" className="h-9 w-9" />
             </motion.button>
           </Link>
           <Link to="/Profile">
@@ -218,7 +218,16 @@ const Navbar = () => {
               whileHover={{ scale: 1.4 }}
               whileTap={{ scale: 0.9 }}
             >
-              <img src="/img/profile_pic.png" alt="" className="h-9 w-9" />
+              <img src="/img/user.png" alt="" className="h-9 w-9" />
+            </motion.button>
+          </Link>
+          <Link to="/Notifications">
+            <motion.button
+              className="rounded-full p-1 hidden sm:block"
+              whileHover={{ scale: 1.4 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <img src="/img/notification.png" alt="" className="h-9 w-9" />
             </motion.button>
           </Link>
           <Link to="/TableBooking">
